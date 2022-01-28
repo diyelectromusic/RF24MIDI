@@ -29,7 +29,7 @@
 /*
   Using principles from the following:
      Arduino MIDI Library: https://github.com/FortySevenEffects/arduino_midi_library
-     Master Reader/Slave Sender: https://www.arduino.cc/en/Tutorial/LibraryExamples/MasterReader
+     RF24 Library: https://github.com/nRF24/RF24
 */
 #include <MIDI.h>
 #include <RF24MIDI.h>

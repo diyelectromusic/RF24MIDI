@@ -29,6 +29,7 @@
 /*
   Using principles from the following:
      Arduino MIDI Library: https://github.com/FortySevenEffects/arduino_midi_library
+     RF24 Library: https://github.com/nRF24/RF24
 */
 #include <MIDI.h>
 #include <RF24MIDI.h>
