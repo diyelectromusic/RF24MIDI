@@ -1,0 +1,35 @@
+#######################################
+# Syntax Coloring Map For rf24MIDI
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+RF24MIDI	KEYWORD1
+RF24MIDI.h	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin				KEYWORD2
+beginTransmission	KEYWORD2
+write				KEYWORD2
+endTransmission		KEYWORD2
+read				KEYWORD2
+available			KEYWORD2
+
+#######################################
+# Instances (KEYWORD3)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+RF24MIDI_CREATE_INSTANCE			LITERAL1
+RF24MIDI_CREATE_CUSTOM_INSTANCE	LITERAL1
+
+# Namespace, considering it as a literal
+rf24MIDI	LITERAL1
+
