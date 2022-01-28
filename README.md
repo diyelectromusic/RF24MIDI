@@ -61,13 +61,13 @@ These will create a instance named `RF24MIDI` using a RF24 exchange to a device 
 
 The included examples demonstrate a transmitter (MIDI OUT) and a receiver (MIDI IN).  This requires two Arduinos both connected up to nrf24L01 radios via SPI.  A simple loudspeaker can be connected to pin 8 of the receiver to hear the tones being played by the transmitter.  Either way the results will be printed out to the serial monitor.
 
-For more details, refer to the following blog post: [Arduino RF24 MIDI Interface]()
+For more details, refer to the following blog post: [Arduino RF24 MIDI Interface](https://diyelectromusic.wordpress.com/2022/01/28/arduino-rf24-midi-interface/)
 
 ### Provided Example 2
 
 A second example provides code to show how an Arduino can act as a two-way Serial MIDI to RF24 MIDI relay.
 
-For more details on this, once again refer to the above mentioned blog post: [Arduino RF24 MIDI Interface]()
+For more details on this, once again refer to the above mentioned blog post: [Arduino RF24 MIDI Interface](https://diyelectromusic.wordpress.com/2022/01/28/arduino-rf24-midi-interface/)
 
 Kevin
 @diyelectromusic
