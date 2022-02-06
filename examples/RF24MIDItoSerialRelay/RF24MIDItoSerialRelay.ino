@@ -41,29 +41,40 @@ RF24MIDI_CREATE_INSTANCE(RF24MIDIINADDR, RF24MIDIOUTADDR, RF24MIDI);
 // Initialise the serial MIDI
 MIDI_CREATE_DEFAULT_INSTANCE();
 
-#define MIDI_LED LED_BUILTIN
+// NB: Cannot use LED_BUILTIN as it clashes with tbe RF24 Radio on the SPI pins
+//#define MIDI_LED 4
 
-void setup() {
+void ledInit() {
+#ifdef MIDI_LED
    pinMode(MIDI_LED, OUTPUT);
-   MIDI.begin(MIDI_CHANNEL_OMNI);
-   MIDI.turnThruOff();
-   RF24MIDI.begin(MIDI_CHANNEL_OMNI);
-   RF24MIDI.turnThruOff();
+#endif
 }
 
 int ledCount;
 void ledOn() {
+#ifdef MIDI_LED
    digitalWrite(MIDI_LED, HIGH);
    ledCount = 1000;
+#endif
 }
 
 void ledOff() {
+#ifdef MIDI_LED
   if (ledCount > 0) {
      ledCount--;
   } else if (ledCount == 0) {
      digitalWrite(MIDI_LED, LOW);
      ledCount = -1;
   }
+#endif
+}
+
+void setup() {
+   ledInit();
+   MIDI.begin(MIDI_CHANNEL_OMNI);
+   MIDI.turnThruOff();
+   RF24MIDI.begin(MIDI_CHANNEL_OMNI);
+   RF24MIDI.turnThruOff();
 }
 
 void loop() {

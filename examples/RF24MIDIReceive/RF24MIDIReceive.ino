@@ -39,7 +39,8 @@
 RF24MIDI_CREATE_INSTANCE(RF24MIDIINADDR, RF24MIDIOUTADDR, RF24MIDI);
 
 #define MIDI_CHANNEL 1
-#define MIDI_LED LED_BUILTIN
+// NB: Cannot use LED_BUILTIN as it clashes with tbe RF24 Radio on the SPI pins
+//#define MIDI_LED 4
 
 // Attach a speaker to pin 8.
 // See: https://www.arduino.cc/en/Tutorial/BuiltInExamples/toneMelody
@@ -69,7 +70,7 @@ void midiNoteOn(byte channel, byte pitch, byte velocity) {
    }
    playing = pitch;
    tone (TONE_PIN, notes[pitch-MIDI_NOTE_START]);
-   digitalWrite(MIDI_LED, HIGH);
+   ledOn();
 }
 
 void midiNoteOff(byte channel, byte pitch, byte velocity) {
@@ -81,15 +82,33 @@ void midiNoteOff(byte channel, byte pitch, byte velocity) {
    Serial.println(velocity);
    if (pitch == playing) {
       noTone(TONE_PIN);
-      digitalWrite(MIDI_LED, LOW);
+      ledOff();
    }
+}
+
+void ledInit() {
+#ifdef MIDI_LED
+   pinMode(MIDI_LED, OUTPUT);
+#endif
+}
+
+void ledOn() {
+#ifdef MIDI_LED
+    digitalWrite(MIDI_LED, HIGH);
+#endif
+}
+
+void ledOff() {
+#ifdef MIDI_LED
+    digitalWrite(MIDI_LED, LOW);
+#endif
 }
 
 void setup() {
    Serial.begin(9600);
    Serial.print("Waiting for MIDI data on channel ");
    Serial.println(MIDI_CHANNEL);
-   pinMode(MIDI_LED, OUTPUT);
+   ledInit();
    RF24MIDI.setHandleNoteOn(midiNoteOn);
    RF24MIDI.setHandleNoteOff(midiNoteOff);
    RF24MIDI.begin(MIDI_CHANNEL);

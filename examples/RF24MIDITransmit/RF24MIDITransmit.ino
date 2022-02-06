@@ -39,31 +39,50 @@
 RF24MIDI_CREATE_INSTANCE(RF24MIDIINADDR, RF24MIDIOUTADDR, RF24MIDI);
 
 #define MIDI_CHANNEL 1
-#define MIDI_LED LED_BUILTIN
+// NB: Cannot use LED_BUILTIN as it clashes with tbe RF24 Radio on the SPI pins
+//#define MIDI_LED 4
+
+void ledInit() {
+#ifdef MIDI_LED
+   pinMode(MIDI_LED, OUTPUT);
+#endif
+}
+
+void ledOn() {
+#ifdef MIDI_LED
+    digitalWrite(MIDI_LED, HIGH);
+#endif
+}
+
+void ledOff() {
+#ifdef MIDI_LED
+    digitalWrite(MIDI_LED, LOW);
+#endif
+}
 
 void setup() {
    Serial.begin(9600);
    Serial.print("Sending MIDI data on channel ");
    Serial.println(MIDI_CHANNEL);
-   pinMode(MIDI_LED, OUTPUT);
+   ledInit();
    RF24MIDI.begin(MIDI_CHANNEL_OFF);
 }
 
 void loop() {
    for (int i=0; i<13; i++) {
-      digitalWrite(MIDI_LED, HIGH);
+      ledOn();
       RF24MIDI.sendNoteOn(60+i, 127, MIDI_CHANNEL);
       delay(100);
-      digitalWrite(MIDI_LED, LOW);
+      ledOff();
       RF24MIDI.sendNoteOff(60+i, 0, MIDI_CHANNEL);
       delay(100);
    }
    delay(500);
    for (int i=12; i>=0; i--) {
-      digitalWrite(MIDI_LED, HIGH);
+      ledOn();
       RF24MIDI.sendNoteOn(60+i, 127, MIDI_CHANNEL);
       delay(30);
-      digitalWrite(MIDI_LED, LOW);
+      ledOff();
       RF24MIDI.sendNoteOff(60+i, 0, MIDI_CHANNEL);
    }
    delay(500);
